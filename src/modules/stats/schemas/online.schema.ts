@@ -1,12 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Server } from './server.schema';
 
 export type OnlineDocument = Online & Document;
 
 @Schema()
 export class Online {
-  @Prop({ required: true, index: true })
-  altvID: string;
+  @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Server' })
+  server: Server;
 
   @Prop({ required: true })
   players: number;
