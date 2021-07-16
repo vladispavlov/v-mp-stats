@@ -1,16 +1,26 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { HttpModule } from '@nestjs/axios';
+import { StatsController } from './stats.controller';
+import { StatsService } from './stats.service';
+import { ServerSchema, Server } from './schemas/server.schema';
+import { OnlineSchema, Online } from './schemas/online.schema';
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI'),
-      }),
-      inject: [ConfigService],
-    }),
+    MongooseModule.forFeatureAsync([
+      {
+        name: Server.name,
+        useFactory: () => ServerSchema,
+      },
+      {
+        name: Online.name,
+        useFactory: () => OnlineSchema,
+      },
+    ]),
+    HttpModule,
   ],
+  controllers: [StatsController],
+  providers: [StatsService],
 })
 export class StatsModule {}
