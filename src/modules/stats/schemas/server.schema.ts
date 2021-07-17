@@ -11,13 +11,13 @@ export class Server {
   @Prop({ required: true })
   maxPlayers: number;
 
-  @Prop({ required: true, index: true })
+  @Prop({ required: true })
   name: string;
 
   @Prop({ required: true })
   locked: boolean;
 
-  @Prop({ required: true, index: true })
+  @Prop({ required: true })
   host: string;
 
   @Prop({ required: true })
