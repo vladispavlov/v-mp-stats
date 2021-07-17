@@ -55,7 +55,7 @@ export class StatsService {
       this.logger.debug('Update started');
       const serverList = await this.getAltvServerList();
       this.logger.debug(`Total servers to update: ${serverList.length}`);
-      const onlineQueries = [];
+      const onlineQueries: Online[] = [];
 
       for (const server of serverList) {
         const serverLastUpdate = new Date(server.lastUpdate);
