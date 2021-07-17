@@ -30,7 +30,7 @@ export class Server {
   website: string;
 
   @Prop({ required: true })
-  laguage: string;
+  language: string;
 
   @Prop({ required: true })
   description: string;
