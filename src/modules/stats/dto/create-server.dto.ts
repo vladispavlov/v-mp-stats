@@ -42,7 +42,7 @@ export class CreateServerDto {
   website: string;
 
   @IsLocale()
-  laguage: string;
+  language: string;
 
   @IsString()
   description: string;
