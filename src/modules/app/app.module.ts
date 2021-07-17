@@ -13,6 +13,7 @@ import { StatsModule } from '../stats/stats.module';
         uri: configService.get<string>('MONGODB_URI'),
         useCreateIndex: true,
         useNewUrlParser: true,
+        useFindAndModify: false,
       }),
       inject: [ConfigService],
     }),
