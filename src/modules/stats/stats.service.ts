@@ -3,6 +3,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Server, ServerDocument } from './schemas/server.schema';
 import { Online, OnlineDocument } from './schemas/online.schema';
+import {
+  ServersOnline,
+  ServersOnlineDocument,
+} from './schemas/serversOnline.schema';
 import { HttpService } from '@nestjs/axios';
 import { Interval } from '@nestjs/schedule';
 import { retry, lastValueFrom } from 'rxjs';
@@ -18,6 +22,9 @@ export class StatsService {
 
     @InjectModel(Online.name)
     private readonly onlineModel: Model<OnlineDocument>,
+
+    @InjectModel(ServersOnline.name)
+    private readonly serversOnlineModel: Model<ServersOnlineDocument>,
 
     private httpService: HttpService,
   ) {
@@ -92,6 +99,10 @@ export class StatsService {
       }
 
       await this.onlineModel.create(onlineQueries);
+      await this.serversOnlineModel.create({
+        quantity: serverList.length,
+        timestamp: new Date(),
+      });
       this.logger.debug('Update successful');
     } catch (e) {
       this.logger.debug('Update failed');
