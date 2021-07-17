@@ -86,4 +86,7 @@ export class CreateServerDto {
 
   @IsDate()
   lastUpdate: Date;
+
+  @IsBoolean()
+  visibility: boolean;
 }

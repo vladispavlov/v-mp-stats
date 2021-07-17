@@ -73,6 +73,9 @@ export class Server {
 
   @Prop({ required: true })
   lastUpdate: Date;
+
+  @Prop({ required: true })
+  visibility: boolean;
 }
 
 export const ServerSchema = SchemaFactory.createForClass(Server);

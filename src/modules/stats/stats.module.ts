@@ -5,6 +5,10 @@ import { StatsController } from './stats.controller';
 import { StatsService } from './stats.service';
 import { ServerSchema, Server } from './schemas/server.schema';
 import { OnlineSchema, Online } from './schemas/online.schema';
+import {
+  ServersOnlineSchema,
+  ServersOnline,
+} from './schemas/serversOnline.schema';
 
 @Module({
   imports: [
@@ -16,6 +20,10 @@ import { OnlineSchema, Online } from './schemas/online.schema';
       {
         name: Online.name,
         useFactory: () => OnlineSchema,
+      },
+      {
+        name: ServersOnline.name,
+        useFactory: () => ServersOnlineSchema,
       },
     ]),
     HttpModule,

@@ -83,6 +83,7 @@ export class StatsService {
           build: server.build,
           version: server.version,
           lastUpdate: serverLastUpdate,
+          visibility: true,
         };
         const serverDocument = await this.serverModel
           .findOneAndUpdate({ altvID: server.id }, updateQuery, {
@@ -98,6 +99,11 @@ export class StatsService {
         });
       }
 
+      const idsOfVisibleServers = onlineQueries.map((query) => query.server);
+      await this.serverModel.updateMany(
+        { _id: { $nin: idsOfVisibleServers } },
+        { visibility: false },
+      );
       await this.onlineModel.create(onlineQueries);
       await this.serversOnlineModel.create({
         quantity: serverList.length,
